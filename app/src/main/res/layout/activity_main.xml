@@ -28,11 +28,11 @@
                 android:onClick="launchFullActivity" />
         <Button android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:text="GET"
-            android:onClick="getParticipant" />
+            android:text="Get Participant From Server"
+            android:onClick="getParticipantsFromServer" />
         <Button android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:text="GET Database"
-            android:onClick="getParticipantDatabase" />
+            android:text="Get Participant From Database"
+            android:onClick="getParticipantsFromDatabase" />
     </LinearLayout>
 </LinearLayout>

@@ -42,7 +42,7 @@ public class DatabaseConfig extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    void insertBulkParticipant(JSONArray response){
+    void insertParticipantsToDatabase(JSONArray response){
         database = getWritableDatabase();
 
         String id;
@@ -79,7 +79,7 @@ public class DatabaseConfig extends SQLiteOpenHelper {
         }
     }
 
-    void getParticipantFromDatabase(){
+    void getParticipantsFromDatabase(){
         database = getWritableDatabase();
 
         Cursor cursor = database.rawQuery("select * from "+DB_NAME,null);

@@ -3,7 +3,6 @@ package com.ciazhar.qrbarcodescanner;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -28,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int ZBAR_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
     RequestQueue queue;
-    String participantList = "";
     DatabaseConfig database;
 
     @Override
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void getParticipant(View view) {
+    public void getParticipantsFromServer(View view) {
         int method = Request.Method.GET;
         String url = "http://103.246.107.213:9999/api/participant/all";
 
@@ -86,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 Log.i("Data :",response.toString());
-                database.insertBulkParticipant(response);
+                database.insertParticipantsToDatabase(response);
             }
         }, new ErrorListener() {
             @Override
@@ -97,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-    public void getParticipantDatabase(View view) {
-        database.getParticipantFromDatabase();
+    public void getParticipantsFromDatabase(View view) {
+        database.getParticipantsFromDatabase();
     }
 }
