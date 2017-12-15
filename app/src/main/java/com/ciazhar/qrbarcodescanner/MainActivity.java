@@ -3,6 +3,7 @@ package com.ciazhar.qrbarcodescanner;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Class<?> mClss;
     RequestQueue queue;
     String participantList = "";
-
+    DatabaseConfig database;
 
     @Override
     public void onCreate(Bundle state) {
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupToolbar();
         queue = Volley.newRequestQueue(this);
+        database = new DatabaseConfig(this);
     }
 
     public void setupToolbar() {
@@ -83,15 +85,8 @@ public class MainActivity extends AppCompatActivity {
             new Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-//                for (int i=0;i<response.length();i++){
-//                    try {
-//                        JSONObject data = response.getJSONObject(i);
-//                        participantList = data.getString("");
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-                Log.i("Response Data",response.toString());
+                Log.i("Data :",response.toString());
+                database.insertBulkParticipant(response);
             }
         }, new ErrorListener() {
             @Override
@@ -100,5 +95,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         queue.add(request);
+    }
+
+    public void getParticipantDatabase(View view) {
+        database.getParticipantFromDatabase();
     }
 }

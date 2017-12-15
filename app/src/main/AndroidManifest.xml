@@ -20,7 +20,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".FullScannerActivity" />
-        <activity android:name=".GetParticipantActivity"></activity>
     </application>
 
 </manifest>
