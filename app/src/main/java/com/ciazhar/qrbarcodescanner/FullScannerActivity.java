@@ -7,9 +7,18 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.ciazhar.qrbarcodescanner.model.Participant;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +39,10 @@ public class FullScannerActivity extends BaseScannerActivity implements MessageD
     private boolean mAutoFocus;
     private ArrayList<Integer> mSelectedIndices;
     private int mCameraId = -1;
+
+    Gson gson = new Gson();
+    RequestQueue queue;
+    Participant participant;
 
     @Override
     public void onCreate(Bundle state) {
@@ -143,7 +156,11 @@ public class FullScannerActivity extends BaseScannerActivity implements MessageD
             Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
             r.play();
         } catch (Exception ignored) {}
-        showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
+
+        String jsonResult = rawResult.getContents();
+        participant = gson.fromJson(jsonResult,Participant.class);
+        showMessageDialog("Halo " + participant.getName());
+        setAttendAgenda(participant.getId());
     }
 
     public void showMessageDialog(String message) {
@@ -165,6 +182,25 @@ public class FullScannerActivity extends BaseScannerActivity implements MessageD
         if(fragment != null) {
             fragment.dismiss();
         }
+    }
+
+    public void setAttendAgenda(String id){
+        int method = Request.Method.GET;
+        String url = "http://103.246.107.213:9999/api/participant/attend?id="+id;
+
+        StringRequest request = new StringRequest(method, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("set agenda : ","success");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        queue.add(request);
+
     }
 
     @Override

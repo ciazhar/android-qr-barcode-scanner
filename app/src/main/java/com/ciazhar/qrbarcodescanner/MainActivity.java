@@ -15,10 +15,12 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -97,5 +99,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void getParticipantsFromDatabase(View view) {
         database.getParticipantsFromDatabase();
+    }
+
+    public void getIku(View view) {
+        int method = Request.Method.GET;
+        String url = "http://103.246.107.213:9999/api/participant/attend?id=5a3405bcb95029b2fa93e10c";
+
+        StringRequest request = new StringRequest(method, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("set agenda : ","success");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        queue.add(request);
     }
 }
