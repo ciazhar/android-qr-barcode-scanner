@@ -23,18 +23,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Release Party"
+            android:textSize="30sp"
+            />
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_launcher_background"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            />
+
         <Button android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:text="@string/activity_sample"
                 android:onClick="launchFullActivity" />
-        <Button android:layout_height="wrap_content"
+        <Button
             android:layout_width="match_parent"
-            android:text="Get Participant From Server"
-            android:onClick="getParticipantsFromServer" />
-        <Button android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="Get Participant From Database"
-            android:onClick="getParticipantsFromDatabase" />
+            android:layout_height="wrap_content"
+            android:text="PARTICIPANT LIST"
+            android:onClick="getParticipantsList"
+            />
+
+
         <!--<Button android:layout_height="wrap_content"-->
             <!--android:layout_width="match_parent"-->
             <!--android:text="Get "-->

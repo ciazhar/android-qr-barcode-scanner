@@ -76,31 +76,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void getParticipantsFromServer(View view) {
-        int method = Request.Method.GET;
-        String url = "http://103.246.107.213:9999/api/participant/all";
-
-        JsonArrayRequest request = new JsonArrayRequest(method, url, null,
-            new Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                Log.i("Data :",response.toString());
-                database.deleteAllParticipantFromDatabase();
-                database.insertParticipantsToDatabase(response);
-            }
-        }, new ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        queue.add(request);
-    }
-
-    public void getParticipantsFromDatabase(View view) {
-        database.getParticipantsFromDatabase();
-    }
-
     public void getIku(View view) {
         int method = Request.Method.GET;
         String url = "http://103.246.107.213:9999/api/participant/attend?id=5a3405bcb95029b2fa93e10c";
@@ -117,5 +92,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         queue.add(request);
+    }
+
+    public void getParticipantsList(View view) {
+        Intent intent = new Intent(this,ParticipantActivity.class);
+        startActivity(intent);
     }
 }
