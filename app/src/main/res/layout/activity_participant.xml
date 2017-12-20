@@ -27,17 +27,20 @@
         android:layout_gravity="center"
         />
 
-    <Button android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="10dp"
-        android:text="Update Participant"
-        android:onClick="getParticipantsFromDatabase" />
-
     <!--<Button android:layout_height="wrap_content"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:text="Get Participant From Database"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_gravity="end"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:text="Update Participant"-->
         <!--android:onClick="getParticipantsFromDatabase" />-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/participant_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        />
 
 
 </LinearLayout>

@@ -7,9 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ciazhar.qrbarcodescanner.model.Participant;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 
 /**
@@ -77,6 +81,7 @@ public class DatabaseConfig extends SQLiteOpenHelper {
             }
 
         }
+        Toast.makeText(context,"Update Sukses",Toast.LENGTH_SHORT).show();
     }
 
     void getParticipantsFromDatabase(){
@@ -91,7 +96,29 @@ public class DatabaseConfig extends SQLiteOpenHelper {
             Integer attendanceStatus= cursor.getInt(7);
             builder.append(name+" - "+email+" - "+attendanceStatus+"\n");
         }
-        Toast.makeText(context,builder.toString(),Toast.LENGTH_LONG).show();
+//        Toast.makeText(context,builder.toString(),Toast.LENGTH_LONG).show();
+    }
+
+    List<Participant> getObjectParticipantFromDatabase(List<Participant> participantList){
+        database = getWritableDatabase();
+
+        Cursor cursor = database.rawQuery("select * from "+DB_NAME,null);
+        while (cursor.moveToNext()){
+            String name = cursor.getString(1);
+            String email= cursor.getString(3);
+            Integer attendanceStatus= cursor.getInt(7);
+            Boolean isAttend;
+
+            if (attendanceStatus==1){
+                isAttend = true;
+            }
+            else {
+                isAttend = false;
+            }
+
+            participantList.add(new Participant(name,email,isAttend));
+        }
+        return participantList;
     }
 
     void deleteAllParticipantFromDatabase(){
