@@ -86,10 +86,17 @@ public class DatabaseConfig extends SQLiteOpenHelper {
         StringBuilder builder = new StringBuilder();
 
         while (cursor.moveToNext()){
-            String nama = cursor.getString(1);
-            String collage= cursor.getString(3);
-            builder.append(nama+"     "+collage+"\n");
+            String name = cursor.getString(1);
+            String email= cursor.getString(3);
+            Integer attendanceStatus= cursor.getInt(7);
+            builder.append(name+" - "+email+" - "+attendanceStatus+"\n");
         }
         Toast.makeText(context,builder.toString(),Toast.LENGTH_LONG).show();
+    }
+
+    void deleteAllParticipantFromDatabase(){
+        database = getWritableDatabase();
+
+        database.delete(DB_NAME,null,null);
     }
 }

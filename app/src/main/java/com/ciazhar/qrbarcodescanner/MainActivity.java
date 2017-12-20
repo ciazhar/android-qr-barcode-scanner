@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 Log.i("Data :",response.toString());
+                database.deleteAllParticipantFromDatabase();
                 database.insertParticipantsToDatabase(response);
             }
         }, new ErrorListener() {
