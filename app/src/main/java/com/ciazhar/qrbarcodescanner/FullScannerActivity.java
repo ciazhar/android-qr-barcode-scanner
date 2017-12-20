@@ -3,21 +3,19 @@ package com.ciazhar.qrbarcodescanner;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.ciazhar.qrbarcodescanner.model.Participant;
+import com.ciazhar.qrbarcodescanner.model.response.AttendanceData;
+import com.ciazhar.qrbarcodescanner.net.RestService;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -26,6 +24,8 @@ import java.util.List;
 import me.dm7.barcodescanner.zbar.BarcodeFormat;
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class FullScannerActivity extends BaseScannerActivity implements MessageDialogFragment.MessageDialogListener,
         ZBarScannerView.ResultHandler, FormatSelectorDialogFragment.FormatSelectorDialogListener,
@@ -155,12 +155,23 @@ public class FullScannerActivity extends BaseScannerActivity implements MessageD
             Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
             r.play();
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+
+        }
 
         String jsonResult = rawResult.getContents();
         participant = gson.fromJson(jsonResult,Participant.class);
         showMessageDialog("Halo " + participant.getName());
-        setAttendAgenda(participant.getId());
+
+        try {
+
+            setAttendance(participant.getId());
+//            confirmationDialog(participant);
+
+
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     public void showMessageDialog(String message) {
@@ -182,25 +193,6 @@ public class FullScannerActivity extends BaseScannerActivity implements MessageD
         if(fragment != null) {
             fragment.dismiss();
         }
-    }
-
-    public void setAttendAgenda(String id){
-        int method = Request.Method.GET;
-        String url = "http://103.246.107.213:9999/api/participant/attend?id="+id;
-
-        StringRequest request = new StringRequest(method, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.i("set agenda : ","success");
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        queue.add(request);
-
     }
 
     @Override
@@ -247,5 +239,26 @@ public class FullScannerActivity extends BaseScannerActivity implements MessageD
         mScannerView.stopCamera();
         closeMessageDialog();
         closeFormatsDialog();
+    }
+
+
+    void setAttendance(String id){
+
+        String url = "api/participant/attend?id="+id;
+
+        RestService.Factory.getInstance().setAttendance(url).enqueue(new Callback<AttendanceData>() {
+            @Override
+            public void onResponse(Call<AttendanceData> call, retrofit2.Response<AttendanceData> response) {
+                Toast.makeText(FullScannerActivity.this, "nama" + response.body().getName(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<AttendanceData> call, Throwable t) {
+
+            }
+        });
+
+
+
     }
 }

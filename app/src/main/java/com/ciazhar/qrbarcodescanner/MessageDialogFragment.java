@@ -5,6 +5,15 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.ciazhar.qrbarcodescanner.model.Participant;
+import com.google.gson.Gson;
 
 public class MessageDialogFragment extends DialogFragment {
     public interface MessageDialogListener {
@@ -43,5 +52,31 @@ public class MessageDialogFragment extends DialogFragment {
         });
 
         return builder.create();
+    }
+
+    Gson gson = new Gson();
+    RequestQueue queue;
+    Participant participant;
+
+    public void setAttendAgenda(String id){
+
+        Log.d("id",id);
+
+        int method = Request.Method.GET;
+        String url = "http://103.246.107.213:9999/api/participant/attend?id="+id;
+
+        StringRequest request = new StringRequest(method, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("set agenda : ","success");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        queue.add(request);
+
     }
 }

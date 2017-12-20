@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         int method = Request.Method.GET;
         String url = "http://103.246.107.213:9999/api/participant/all";
 
-
         JsonArrayRequest request = new JsonArrayRequest(method, url, null,
             new Listener<JSONArray>() {
             @Override
