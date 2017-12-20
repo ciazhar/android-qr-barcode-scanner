@@ -27,7 +27,7 @@ public class ParticipantActivity extends AppCompatActivity {
         database = new DatabaseConfig(this);
     }
 
-    public void getParticipantsFromServer(View view) {
+    public void getParticipantsFromServer() {
         int method = Request.Method.GET;
         String url = "http://103.246.107.213:9999/api/participant/all";
 
@@ -49,6 +49,7 @@ public class ParticipantActivity extends AppCompatActivity {
     }
 
     public void getParticipantsFromDatabase(View view) {
+        getParticipantsFromServer();
         database.getParticipantsFromDatabase();
     }
 
