@@ -34,9 +34,9 @@
             android:layout_width="match_parent"
             android:text="Get Participant From Database"
             android:onClick="getParticipantsFromDatabase" />
-        <Button android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="Get "
-            android:onClick="getIku" />
+        <!--<Button android:layout_height="wrap_content"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:text="Get "-->
+            <!--android:onClick="getIku" />-->
     </LinearLayout>
 </LinearLayout>
