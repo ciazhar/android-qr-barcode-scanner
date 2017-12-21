@@ -16,8 +16,6 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -25,19 +23,19 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 
-public class MainActivity extends AppCompatActivity {
+public class DialogActivity extends AppCompatActivity {
     private static final int ZBAR_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
     RequestQueue queue;
-    DatabaseConfig database;
+    ParticipantRepository database;
 
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_dialog);
         setupToolbar();
         queue = Volley.newRequestQueue(this);
-        database = new DatabaseConfig(this);
+        database = new ParticipantRepository(this);
     }
 
     public void setupToolbar() {
@@ -102,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void getParticipantsFromServer() {
         int method = Request.Method.GET;
-        String url = "http://103.246.107.213:9999/api/participant/all";
+        String url = "http://103.246.107.213:9999/api/participant/5a3be5b5b95029c89d8bed32/all";
 
         JsonArrayRequest request = new JsonArrayRequest(method, url, null,
                 new Response.Listener<JSONArray>() {

@@ -59,7 +59,7 @@ public class FullScannerActivity extends BaseScannerActivity implements MessageD
             mCameraId = -1;
         }
 
-        setContentView(R.layout.activity_full_scanner);
+        setContentView(R.layout.activity_scanner);
         setupToolbar();
         ViewGroup contentFrame = findViewById(R.id.content_frame);
         mScannerView = new ZBarScannerView(this);

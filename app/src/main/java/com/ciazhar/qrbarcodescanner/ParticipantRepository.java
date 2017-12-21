@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ciazhar.qrbarcodescanner.model.Agenda;
 import com.ciazhar.qrbarcodescanner.model.Participant;
 
 import org.json.JSONArray;
@@ -20,16 +21,15 @@ import java.util.List;
  * Created by ciazhar on 15/12/17.
  */
 
-public class DatabaseConfig extends SQLiteOpenHelper {
+public class ParticipantRepository extends SQLiteOpenHelper {
 
     static final private String DB_NAME = "rp";
-    static final private String DB_TABLE = "";
     static final private Integer DB_VER = 1;
 
     Context context;
     SQLiteDatabase database;
 
-    public DatabaseConfig(Context context) {
+    public ParticipantRepository(Context context) {
         super(context, DB_NAME,null,DB_VER);
         this.context=context;
     }

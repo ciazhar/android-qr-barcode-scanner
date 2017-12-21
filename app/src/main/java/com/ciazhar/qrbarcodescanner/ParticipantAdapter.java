@@ -29,7 +29,7 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.activity_recycler,parent,false);
+                .inflate(R.layout.activity_recycler_participant,parent,false);
         return new ViewHolder(view);
     }
 

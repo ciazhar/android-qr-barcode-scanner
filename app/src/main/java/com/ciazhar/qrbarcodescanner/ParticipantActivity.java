@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ParticipantActivity extends AppCompatActivity {
 
-    DatabaseConfig database;
+    ParticipantRepository database;
     RequestQueue queue;
 
     private List<Participant> participantList = new ArrayList<>();
@@ -34,7 +34,7 @@ public class ParticipantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_participant);
         queue = Volley.newRequestQueue(this);
-        database = new DatabaseConfig(this);
+        database = new ParticipantRepository(this);
         recyclerView = findViewById(R.id.participant_rv);
         adapter = new ParticipantAdapter(participantList,this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
