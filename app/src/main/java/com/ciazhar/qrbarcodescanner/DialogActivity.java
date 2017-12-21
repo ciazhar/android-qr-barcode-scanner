@@ -103,6 +103,7 @@ public class DialogActivity extends AppCompatActivity {
 
     public void getParticipantsList(View view) {
         Intent intent = new Intent(this,ParticipantActivity.class);
+        intent.putExtra("agenda.name",agendaName.getText());
         getParticipantsFromServer();
         startActivity(intent);
     }

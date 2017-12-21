@@ -1,11 +1,13 @@
 package com.ciazhar.qrbarcodescanner;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,6 +31,8 @@ public class ParticipantActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ParticipantAdapter adapter;
 
+    TextView participantTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,11 @@ public class ParticipantActivity extends AppCompatActivity {
         adapter = new ParticipantAdapter(participantList,this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        participantTitle = findViewById(R.id.participant_title);
+
+        Intent intent = getIntent();
+        participantTitle.setText(intent.getStringExtra("agenda.name"));
 
         String s = database.getObjectParticipantFromDatabase(participantList).toString();
         adapter.notifyDataSetChanged();
