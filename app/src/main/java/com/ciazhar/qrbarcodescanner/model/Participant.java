@@ -1,7 +1,5 @@
 package com.ciazhar.qrbarcodescanner.model;
 
-import java.util.ArrayList;
-
 /**
  * Created by ciazhar on 19/12/17.
  */
@@ -15,6 +13,7 @@ public class Participant {
     private DVDBit dvdBitBit;
     private Boolean paymentStatus;
     private Boolean attendanceStatus;
+    private String agendaId;
 
     public Participant(String name, String email, Boolean attendanceStatus) {
         this.name = name;
@@ -97,17 +96,11 @@ public class Participant {
         this.attendanceStatus = attendanceStatus;
     }
 
-    @Override
-    public String toString() {
-        return "Participant{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", jobStatus=" + jobStatus +
-                ", dvdBitBit=" + dvdBitBit +
-                ", paymentStatus=" + paymentStatus +
-                ", attendanceStatus=" + attendanceStatus +
-                '}';
+    public String getAgendaId() {
+        return agendaId;
+    }
+
+    public void setAgendaId(String agendaId) {
+        this.agendaId = agendaId;
     }
 }

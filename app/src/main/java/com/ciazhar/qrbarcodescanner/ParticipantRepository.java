@@ -36,7 +36,7 @@ public class ParticipantRepository extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table "+DB_NAME+" (id text, name text, phoneNumber text, email text, jobStatus text, dvdBitBit text, paymentStatus boolean, attendanceStatus boolean);");
+        sqLiteDatabase.execSQL("create table "+DB_NAME+" (id text, name text, phoneNumber text, email text, jobStatus text, dvdBitBit text, paymentStatus boolean, attendanceStatus boolean, agendaId text);");
         Log.i("Database","Table Created");
     }
 
@@ -57,6 +57,7 @@ public class ParticipantRepository extends SQLiteOpenHelper {
         String dvdBitBit;
         int paymentStatus;
         int attendanceStatus;
+        String agendaId;
 
         for (int i=0;i<response.length();i++){
             try {
@@ -70,10 +71,12 @@ public class ParticipantRepository extends SQLiteOpenHelper {
                 dvdBitBit = data.getString("dvdBitBit");
                 paymentStatus = data.getBoolean("paymentStatus")?1:0;
                 attendanceStatus = data.getBoolean("attendanceStatus")?1:0;
+                agendaId = data.getString("agendaId");
 
                 database.execSQL("insert into "+DB_NAME+" values('"+
                         id+"','"+name+"','"+phoneNumber+"','"+email+"','"+
-                        jobStatus+"','"+dvdBitBit+"',"+paymentStatus+","+attendanceStatus+");");
+                        jobStatus+"','"+dvdBitBit+"',"+paymentStatus+","+attendanceStatus+
+                        ",'"+ agendaId +"');");
 
                 Log.i("Data parsing",data.toString());
             } catch (JSONException e) {

@@ -46,6 +46,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
             public void onClick(View view) {
                 Intent intent = new Intent(context,DialogActivity.class);
                 intent.putExtra("agenda.name",agenda.getAgendaName());
+                intent.putExtra("agenda.id",agenda.getAgendaId());
                 context.startActivity(intent);
             }
         });

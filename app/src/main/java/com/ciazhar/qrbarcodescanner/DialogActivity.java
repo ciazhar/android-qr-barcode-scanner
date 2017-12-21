@@ -30,6 +30,7 @@ public class DialogActivity extends AppCompatActivity {
     RequestQueue queue;
     ParticipantRepository database;
     TextView agendaName;
+    String agendaId;
 
     @Override
     public void onCreate(Bundle state) {
@@ -44,7 +45,8 @@ public class DialogActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         agendaName.setText(intent.getStringExtra("agenda.name"));
-
+        agendaId = intent.getStringExtra("agenda.id");
+        Log.i("sampai di dialog",agendaId);
     }
 
     public void setupToolbar() {
@@ -110,7 +112,7 @@ public class DialogActivity extends AppCompatActivity {
 
     public void getParticipantsFromServer() {
         int method = Request.Method.GET;
-        String url = "http://103.246.107.213:9999/api/participant/5a3be5b5b95029c89d8bed32/all";
+        String url = "http://103.246.107.213:9999/api/participant/"+agendaId+"/all";
 
         JsonArrayRequest request = new JsonArrayRequest(method, url, null,
                 new Response.Listener<JSONArray>() {
