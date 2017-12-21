@@ -96,6 +96,29 @@ public class MainActivity extends AppCompatActivity {
 
     public void getParticipantsList(View view) {
         Intent intent = new Intent(this,ParticipantActivity.class);
+        getParticipantsFromServer();
         startActivity(intent);
     }
+
+    public void getParticipantsFromServer() {
+        int method = Request.Method.GET;
+        String url = "http://103.246.107.213:9999/api/participant/all";
+
+        JsonArrayRequest request = new JsonArrayRequest(method, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.i("Data :",response.toString());
+                        database.deleteAllParticipantFromDatabase();
+                        database.insertParticipantsToDatabase(response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        queue.add(request);
+    }
+
 }
