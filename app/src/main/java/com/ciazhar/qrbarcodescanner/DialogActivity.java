@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -28,14 +29,22 @@ public class DialogActivity extends AppCompatActivity {
     private Class<?> mClss;
     RequestQueue queue;
     ParticipantRepository database;
+    TextView agendaName;
 
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_dialog);
         setupToolbar();
+
         queue = Volley.newRequestQueue(this);
         database = new ParticipantRepository(this);
+
+        agendaName = findViewById(R.id.dialog_name);
+
+        Intent intent = getIntent();
+        agendaName.setText(intent.getStringExtra("agenda.name"));
+
     }
 
     public void setupToolbar() {

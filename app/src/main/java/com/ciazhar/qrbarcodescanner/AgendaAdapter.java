@@ -1,7 +1,10 @@
 package com.ciazhar.qrbarcodescanner;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +41,14 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
         final Agenda agenda = agendaList.get(position);
 
         holder.agendaName.setText(agenda.getAgendaName());
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,DialogActivity.class);
+                intent.putExtra("agenda.name",agenda.getAgendaName());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -48,10 +59,12 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView agendaName;
+        CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             agendaName = itemView.findViewById(R.id.agenda_name);
+            cardView = itemView.findViewById(R.id.agenda_cv);
         }
     }
 }
