@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/white"
-    tools:context="com.ciazhar.qrbarcodescanner.InitActivity">
+    tools:context="com.ciazhar.qrbarcodescanner.AgendaActivity">
 
     <android.support.design.widget.AppBarLayout
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
