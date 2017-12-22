@@ -8,6 +8,7 @@ package com.ciazhar.qrbarcodescanner.model;
 public class Agenda {
     private String agendaId;
     private String agendaName;
+    private Integer agendaPicture;
 
     public Agenda(String agendaId, String agendaName) {
         this.agendaId = agendaId;
@@ -28,6 +29,14 @@ public class Agenda {
 
     public void setAgendaName(String agendaName) {
         this.agendaName = agendaName;
+    }
+
+    public Integer getAgendaPicture() {
+        return agendaPicture;
+    }
+
+    public void setAgendaPicture(Integer agendaPicture) {
+        this.agendaPicture = agendaPicture;
     }
 
     @Override

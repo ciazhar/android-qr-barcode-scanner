@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class DialogActivity extends AppCompatActivity {
     RequestQueue queue;
     ParticipantRepository database;
     TextView agendaName;
+    ImageView agendaPicture;
     String agendaId;
 
     @Override
@@ -42,9 +44,16 @@ public class DialogActivity extends AppCompatActivity {
         database = new ParticipantRepository(this);
 
         agendaName = findViewById(R.id.dialog_name);
+        agendaPicture = findViewById(R.id.dialog_picture);
 
         Intent intent = getIntent();
         agendaName.setText(intent.getStringExtra("agenda.name"));
+        if (agendaName.getText().equals("rp")){
+            agendaPicture.setImageResource(R.drawable.tealinuxoslogo);
+        }
+        else if (agendaName.getText().equals("sfd")){
+            agendaPicture.setImageResource(R.drawable.sfd);
+        }
         agendaId = intent.getStringExtra("agenda.id");
         Log.i("sampai di dialog",agendaId);
     }

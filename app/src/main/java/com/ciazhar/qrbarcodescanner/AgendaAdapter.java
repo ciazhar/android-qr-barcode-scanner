@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ciazhar.qrbarcodescanner.model.Agenda;
@@ -40,6 +41,13 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Agenda agenda = agendaList.get(position);
 
+        if (agenda.getAgendaName().equals("rp")){
+            holder.agendaPicture.setImageResource(R.drawable.tealinuxoslogo);
+        }
+        else if (agenda.getAgendaName().equals("sfd")){
+            holder.agendaPicture.setImageResource(R.drawable.sfd);
+        }
+
         holder.agendaName.setText(agenda.getAgendaName());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,11 +68,13 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView agendaName;
+        public ImageView agendaPicture;
         CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             agendaName = itemView.findViewById(R.id.agenda_name);
+            agendaPicture = itemView.findViewById(R.id.agenda_picture);
             cardView = itemView.findViewById(R.id.agenda_cv);
         }
     }
