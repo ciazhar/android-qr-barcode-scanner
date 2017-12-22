@@ -115,11 +115,11 @@ public class DialogActivity extends AppCompatActivity {
     public void getParticipantsList(View view) {
         Intent intent = new Intent(this,ParticipantActivity.class);
         intent.putExtra("agenda.name",agendaName.getText());
-        getParticipantsFromServer();
-        startActivity(intent);
+        getParticipantsFromServer(intent);
+//        startActivity(intent);
     }
 
-    public void getParticipantsFromServer() {
+    public void getParticipantsFromServer(final Intent intent) {
         int method = Request.Method.GET;
         String url = "http://103.246.107.213:9999/api/participant/"+agendaId+"/all";
 
@@ -130,6 +130,7 @@ public class DialogActivity extends AppCompatActivity {
                         Log.i("Data :",response.toString());
                         database.deleteAllParticipantFromDatabase();
                         database.insertParticipantsToDatabase(response);
+                        startActivity(intent);
                     }
                 }, new Response.ErrorListener() {
             @Override
