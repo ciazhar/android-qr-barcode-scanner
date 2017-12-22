@@ -42,7 +42,7 @@ public class AgendaActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        getAgendaFromServer();
+//        getAgendaFromServer();
 //        getAgendaFromServer();
         String s = database.getObjectAgendaFromDatabase(agendaList).toString();
 
@@ -55,25 +55,25 @@ public class AgendaActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void getAgendaFromServer() {
-        int method = Request.Method.GET;
-        String url = "http://103.246.107.213:9999/api/agenda/all";
-
-        JsonArrayRequest request = new JsonArrayRequest(method, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        database.deleteAllAgendaFromDatabase();
-                        database.insertAgendaToDatabase(response);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        queue.add(request);
-    }
+//    public void getAgendaFromServer() {
+//        int method = Request.Method.GET;
+//        String url = "http://103.246.107.213:9999/api/agenda/all";
+//
+//        JsonArrayRequest request = new JsonArrayRequest(method, url, null,
+//                new Response.Listener<JSONArray>() {
+//                    @Override
+//                    public void onResponse(JSONArray response) {
+//                        database.deleteAllAgendaFromDatabase();
+//                        database.insertAgendaToDatabase(response);
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                error.printStackTrace();
+//            }
+//        });
+//        queue.add(request);
+//    }
 
     void addAgendaToDevice(Agenda agenda){
         agendaList.add(agenda);
